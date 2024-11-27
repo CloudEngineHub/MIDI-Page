@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="MIDI is a novel paradigm for compositional 3D scene generation from a single image, extending pre-trained 3D object generation models to multi-instance diffusion models for simultaneous generation of multiple 3D instances." />
+    <meta
+      name="keywords"
+      content="MIDI, Image to 3D Generation, Diffusion Models, 3D Scene Generation" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      MIDI: Multi-Instance Diffusion for Single Image to 3D Scene Generation
+    </title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet" />
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css" />
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+    <link rel="stylesheet" href="./static/css/index.css" />
+    <!-- <link rel="icon" href="./static/images/favicon.svg" /> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/controls/OrbitControls.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+    <!--  Scene Viewer -->
+    <link rel="stylesheet" href="modules/SceneViewer/scene-viewer.css" />
+
+    <!-- Video Viewer -->
+    <link rel="stylesheet" href="modules/VideoViewer/video-viewer.css" />
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                MIDI: Multi-Instance Diffusion for Single Image to 3D Scene
+                Generation
+              </h1>
+              <div class="is-size-5 publication-authors">
+                Anonymous authors
+                <hr
+                  style="
+                    width: 100%;
+                    height: 0.7px;
+                    background-color: rgba(0, 0, 0, 0.665);
+                    margin-top: 1em;
+                  " />
+                Create high-fidelity 3D Scene from from a single image using
+                <strong>Multi-Instance Diffusion Models</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero teaser">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <video
+              id="dollyzoom"
+              autoplay
+              controls
+              muted
+              loop
+              playsinline
+              width="100%">
+              <source src="./assets/teaser.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                This paper introduces MIDI, a novel paradigm for compositional
+                3D scene generation from a single image. Unlike existing methods
+                that rely on reconstruction or retrieval techniques or recent
+                approaches that employ multi-stage object-by-object generation,
+                MIDI extends pre-trained image-to-3D object generation models to
+                multi-instance diffusion models, enabling the simultaneous
+                generation of multiple 3D instances with accurate spatial
+                relationships and high generalizability. At its core, MIDI
+                incorporates a novel multi-instance attention mechanism, that
+                effectively captures inter-object interactions and spatial
+                coherence directly within the generation process, without the
+                need for complex multi-step processes. The method utilizes
+                partial object images and global scene context as inputs,
+                directly modeling object completion during 3D generation. During
+                training, we effectively supervise the interactions between 3D
+                instances using a limited amount of scene-level data, while
+                incorporating single-object data for regularization, thereby
+                maintaining the pre-trained generalization ability. MIDI
+                demonstrates state-of-the-art performance in image-to-scene
+                generation, validated through evaluations on synthetic data,
+                real-world scene data, and stylized scene images generated by
+                text-to-image diffusion models.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract. -->
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <div class="has-text-centered">
+              <h2 class="title is-3">How it works</h2>
+            </div>
+            <br />
+            <div class="has-text-justified">
+              Given an input image of a scene, we segment it into multiple parts
+              and use a multi-instance diffusion model conditioned on those
+              images to generate compositional 3D instances of the scene. These
+              3D instances can be directly composed into a scene. The total
+              processing time runs in as little as 40 seconds.
+            </div>
+            <video autoplay muted loop playsinline height="80%">
+              <source src="./assets/how_it_works.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scripts Start -->
+    <script type="module">
+      import { ViewerModule } from "./modules/SceneViewer/scene-viewer.js";
+
+      const viewer = new ViewerModule(
+        ".scene-viewer",
+        [
+          "complete-kitchen",
+          "0001",
+          "scene0782_00_000100",
+          "0028",
+          "scene0733_00_000000",
+          "ffd98024-7200-429e-8b9a-1234a5937826-LivingRoom-360",
+          "1e649cc84c9043b69e2367b7d5aeecf2_i1_0",
+          "ffbb5785-e27f-47f4-a4b9-479d74d4815f-LivingDiningRoom-4585",
+          "ff7ccf2d-0449-4367-aecc-3514af04afdd-Bedroom-11127",
+          "3ffabcbad5894c6e8f03f54453a1e2e9_i1_3",
+          "green-room",
+          "the-breakfast-room",
+          "0016",
+          "scene0781_00_000400",
+          "the-wooden-staircase",
+          "0007",
+          "ffb067ad-cf9a-4321-82ae-4e684c59ea3e-KidsRoom-5300",
+        ],
+        "https://huggingface.co/datasets/huanngzh/midi-page-assets/resolve/main/3d_models",
+        "assets/images"
+      );
+      viewer.init();
+    </script>
+    <!-- Scripts End -->
+
+    <section class="section" style="padding-top: 0">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <div class="has-text-centered">
+              <h2 class="title is-3">Interactive Results</h2>
+            </div>
+            <br />
+            <div class="scene-viewer">
+              <!-- Scene Viewer -->
+              <div id="loading-overlay">
+                <div class="loading-spinner"></div>
+              </div>
+              <div id="viewer-container"></div>
+              <div id="button-block"></div>
+              <div class="swiper">
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-wrapper" id="image-slider"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="module">
+      import { VideoViewerModule } from "./modules/VideoViewer/video-viewer.js";
+
+      const videoViewer = new VideoViewerModule(
+        ".video-viewer",
+        [
+          "the-breakfast-room",
+          "complete-kitchen",
+          "3ffabcbad5894c6e8f03f54453a1e2e9_i1_3",
+          "ffd98024-7200-429e-8b9a-1234a5937826-LivingRoom-360",
+          "1e649cc84c9043b69e2367b7d5aeecf2_i1_0",
+          "ff7ccf2d-0449-4367-aecc-3514af04afdd-Bedroom-11127",
+          "4e796cd1c4594f9fb07bf8b48edf2dc2_i2_2",
+          "the-wooden-staircase",
+        ],
+        "assets/videos",
+        "assets/images"
+      );
+      videoViewer.init();
+    </script>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width">
+            <div class="has-text-centered">
+              <h2 class="title is-3">Comparisons to Other Methods</h2>
+            </div>
+            <br />
+            <div class="video-viewer">
+              <div id="video-container"></div>
+              <div class="swiper">
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-wrapper" id="image-slider"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="has-text-centered">
+          <h2 class="title is-3">Method Overview</h2>
+        </div>
+        <br />
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <br />
+            <img src="./assets/overview.png" class="" alt="" />
+            MIDI is a <b>multi-instance diffusion model</b> to generate
+            compositional 3D instances of the scene from a single image. Based
+            on 3D object generation models, MIDI denoises the latent
+            representations of multiple 3D instances simultaneously using a
+            weight-shared DiT module. The multi-instance attention layers are
+            introduced to learn cross-instance interaction and enable global
+            awareness, while cross-attention layers integrate the information of
+            object images and global scene context.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <div class="has-text-centered">
+          <h2 class="title">BibTeX</h2>
+        </div>
+        <div
+          class="columns is-centered has-text-centered"
+          style="padding-bottom: 1.5rem">
+          <div class="column is-four-fifths">
+            <div class="content has-text-justified">
+              <pre><code>@article{huang2024midi,
+  title={MIDI: Multi-Instance Diffusion for Single Image to 3D Scene Generation},
+  author={},
+  journal={},
+  year={2024}
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <a class="icon-link" href="https://arxiv.org/pdf/2312.06725">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+          <a
+            class="icon-link"
+            href="https://github.com/huanngzh"
+            class="external-link"
+            disabled>
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p style="text-align: center">
+                Source code of this page can be found at
+                <a
+                  href="https://github.com/huanngzh/MIDI/tree/page"
+                  target="_blank"
+                  >MIDI</a
+                >. The website template is borrowed from
+                <a href="https://nerfies.github.io/" target="_blank">Nerfies</a
+                >.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
