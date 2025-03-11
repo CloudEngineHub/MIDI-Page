@@ -115,7 +115,12 @@
                   href="https://scholar.google.com/citations?user=b7ZJV9oAAAAJ"
                   target="_blank"
                   >Yuan-Chen Guo</a
-                ><sup>2†</sup>, Xingqiao An<sup>3</sup>,
+                ><sup>2†</sup>,
+                <a
+                  href="https://scholar.google.com/citations?user=e8u5LUQAAAAJ"
+                  target="_blank"
+                  >Xingqiao An</a
+                ><sup>3</sup>,
                 <a href="https://yhyang-myron.github.io/" target="_blank"
                   >Yunhan Yang</a
                 ><sup>4</sup>,
@@ -221,8 +226,8 @@
                     background-color: rgba(0, 0, 0, 0.665);
                     margin-top: 1em;
                   " />
-                Create high-fidelity 3D Scene from from a single image using
-                <strong>Multi-Instance Diffusion Models</strong>.
+                Create high-fidelity 3D Scene from a single image using
+                <strong>Multi-Instance Diffusion Models (MIDI)</strong>.
               </div>
             </div>
           </div>
@@ -234,7 +239,8 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
           <div class="column is-full-width">
-            <video
+            <img src="./assets/teaser.png" alt="teaser" style="width: 100%" />
+            <!-- <video
               id="dollyzoom"
               autoplay
               controls
@@ -243,7 +249,7 @@
               playsinline
               width="100%">
               <source src="./assets/teaser.mp4" type="video/mp4" />
-            </video>
+            </video> -->
           </div>
         </div>
       </div>
@@ -317,23 +323,17 @@
       const viewer = new ViewerModule(
         ".scene-viewer",
         [
-          "complete-kitchen",
-          "0001",
-          "scene0782_00_000100",
-          "0028",
-          "scene0733_00_000000",
-          "ffd98024-7200-429e-8b9a-1234a5937826-LivingRoom-360",
-          "1e649cc84c9043b69e2367b7d5aeecf2_i1_0",
-          "ffbb5785-e27f-47f4-a4b9-479d74d4815f-LivingDiningRoom-4585",
-          "ff7ccf2d-0449-4367-aecc-3514af04afdd-Bedroom-11127",
-          "3ffabcbad5894c6e8f03f54453a1e2e9_i1_3",
-          "green-room",
-          "the-breakfast-room",
-          "0016",
-          "scene0781_00_000400",
-          "the-wooden-staircase",
-          "0007",
-          "ffb067ad-cf9a-4321-82ae-4e684c59ea3e-KidsRoom-5300",
+          "texed_0001",
+          "texed_0002",
+          "texed_0003",
+          "texed_0004",
+          "texed_0005",
+          "texed_0006",
+          "texed_0007",
+          "texed_0008",
+          "texed_0009",
+          "texed_0010",
+          "texed_0011",
         ],
         "https://huggingface.co/datasets/huanngzh/midi-page-assets/resolve/main/3d_models",
         "assets/images"
@@ -350,6 +350,12 @@
               <h2 class="title is-3">Interactive Results</h2>
             </div>
             <br />
+            <div>
+              Texture of the 3D scenes is generated using
+              <a href="https://github.com/huanngzh/MV-Adapter" target="_blank"
+                >MV-Adapter</a
+              >.
+            </div>
             <div class="scene-viewer">
               <!-- Scene Viewer -->
               <div id="loading-overlay">

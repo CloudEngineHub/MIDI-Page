@@ -32,7 +32,7 @@ export class ViewerModule {
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(width, height);
-    this.renderer.setClearColor(0x000000);
+    this.renderer.setClearColor(0xffffff);
     this.renderer.outputEncoding = THREE.sRGBEncoding;
     this.renderer.physicallyCorrectLights = true;
     viewerContainer.appendChild(this.renderer.domElement);
@@ -48,7 +48,7 @@ export class ViewerModule {
     directionalLight.position.set(5, 10, 7);
     this.scene.add(directionalLight);
 
-    const lightIntensity = 7;
+    const lightIntensity = 18;
     const lightDistance = 100;
 
     const directions = [
